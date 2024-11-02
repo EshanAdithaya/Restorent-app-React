@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
 import { ShoppingCart, X, ChevronRight, Clock, MapPin } from 'lucide-react';
-import { 
-  Card, 
-  CardContent, 
-  CardHeader, 
-  CardTitle 
-} from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 
 const RestaurantWebsite = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,7 +34,6 @@ const RestaurantWebsite = () => {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2">
-              {/* Replaced MenuIcon with a simple hamburger icon using divs */}
               <div className="space-y-1">
                 <div className="w-6 h-0.5 bg-gray-600"></div>
                 <div className="w-6 h-0.5 bg-gray-600"></div>
@@ -70,54 +62,44 @@ const RestaurantWebsite = () => {
           <h2 className="text-4xl font-bold mb-4">Experience Fine Dining</h2>
           <p className="text-gray-300 mb-8">Order online for delivery or pickup</p>
           <div className="flex space-x-4">
-            <Button variant="default" className="bg-white text-black hover:bg-gray-100">
+            <button className="bg-white text-black px-6 py-2 rounded-md hover:bg-gray-100">
               Order Now
-            </Button>
-            <Button variant="outline" className="text-white border-white hover:bg-white hover:text-black">
+            </button>
+            <button className="border border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-black">
               View Menu
-            </Button>
+            </button>
           </div>
         </div>
       </div>
 
       {/* Info Cards */}
       <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Clock className="mr-2 h-5 w-5" />
-              Hours
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Mon-Fri: 11am - 10pm</p>
-            <p>Sat-Sun: 10am - 11pm</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <MapPin className="mr-2 h-5 w-5" />
-              Location
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>123 Culinary Street</p>
-            <p>Foodie City, FC 12345</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <ChevronRight className="mr-2 h-5 w-5" />
-              Delivery Info
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Free delivery on orders over $30</p>
-            <p>30-45 min estimated time</p>
-          </CardContent>
-        </Card>
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="flex items-center mb-4">
+            <Clock className="mr-2 h-5 w-5" />
+            <h3 className="font-bold">Hours</h3>
+          </div>
+          <p>Mon-Fri: 11am - 10pm</p>
+          <p>Sat-Sun: 10am - 11pm</p>
+        </div>
+        
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="flex items-center mb-4">
+            <MapPin className="mr-2 h-5 w-5" />
+            <h3 className="font-bold">Location</h3>
+          </div>
+          <p>123 Culinary Street</p>
+          <p>Foodie City, FC 12345</p>
+        </div>
+        
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="flex items-center mb-4">
+            <ChevronRight className="mr-2 h-5 w-5" />
+            <h3 className="font-bold">Delivery Info</h3>
+          </div>
+          <p>Free delivery on orders over $30</p>
+          <p>30-45 min estimated time</p>
+        </div>
       </div>
 
       {/* Menu Section */}
@@ -127,14 +109,17 @@ const RestaurantWebsite = () => {
         {/* Category Tabs */}
         <div className="flex overflow-x-auto space-x-4 mb-8">
           {menuCategories.map(category => (
-            <Button
+            <button
               key={category}
-              variant={activeCategory === category ? "default" : "outline"}
+              className={`px-4 py-2 rounded-md whitespace-nowrap ${
+                activeCategory === category 
+                ? "bg-black text-white" 
+                : "border border-gray-300 hover:bg-gray-50"
+              }`}
               onClick={() => setActiveCategory(category)}
-              className="whitespace-nowrap"
             >
               {category}
-            </Button>
+            </button>
           ))}
         </div>
 
@@ -143,8 +128,8 @@ const RestaurantWebsite = () => {
           {menuItems
             .filter(item => item.category === activeCategory)
             .map(item => (
-              <Card key={item.id}>
-                <CardContent className="p-4">
+              <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div className="p-4">
                   <img
                     src={item.image}
                     alt={item.name}
@@ -157,14 +142,14 @@ const RestaurantWebsite = () => {
                     </div>
                     <span className="font-bold">${item.price}</span>
                   </div>
-                  <Button 
+                  <button 
                     onClick={() => addToCart(item)}
-                    className="w-full mt-2"
+                    className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 mt-2"
                   >
                     Add to Cart
-                  </Button>
-                </CardContent>
-              </Card>
+                  </button>
+                </div>
+              </div>
             ))}
         </div>
       </div>
@@ -204,12 +189,12 @@ const RestaurantWebsite = () => {
                 <span className="font-bold">Total:</span>
                 <span className="font-bold">${total.toFixed(2)}</span>
               </div>
-              <Button 
-                className="w-full"
+              <button 
+                className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800"
                 disabled={cartItems.length === 0}
               >
                 Proceed to Checkout
-              </Button>
+              </button>
             </div>
           </div>
         </div>

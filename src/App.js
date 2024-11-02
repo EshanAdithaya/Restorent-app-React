@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import RestaurantWebsite from './components/RestaurantWebsite';
-
-// Import required styles for shadcn/ui
-import "@/styles/globals.css"
+import RestaurantWebsite from './RestaurantWebsite.js';
+import './index.css';  // Use the existing index.css instead of globals.css
 
 function App() {
   return (
